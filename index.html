@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>煌めき絆メーカー✨ Premium</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        body { margin: 0; font-family: 'Helvetica Neue', Arial, sans-serif; background: linear-gradient(135deg, #1a0a2a, #050505); color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; box-sizing: border-box; overflow: hidden; }
+        #app { width: 100%; max-width: 400px; text-align: center; border: 3px solid #0ff; padding: 30px; border-radius: 30px; background: rgba(0, 0, 0, 0.95); box-shadow: 0 0 60px rgba(0, 255, 255, 0.2); position: relative; }
+        h1 { font-size: 1.4rem; color: #0ff; text-shadow: 0 0 10px #0ff; margin-bottom: 20px; letter-spacing: 2px; }
+        #message-box { min-height: 130px; margin-bottom: 25px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 20px; font-size: 1.2rem; line-height: 1.6; display: flex; align-items: center; justify-content: center; white-space: pre-wrap; font-weight: bold; border: 1px solid #333; transition: 0.3s; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        button { padding: 16px; font-size: 1rem; cursor: pointer; border: none; border-radius: 50px; font-weight: bold; transition: 0.3s; width: 100%; -webkit-tap-highlight-color: transparent; }
+        #gen-btn { background: linear-gradient(to right, #0ff, #f0f); color: #000; margin-bottom: 5px; box-shadow: 0 4px 15px rgba(0,255,255,0.4); }
+        #gen-btn:active { transform: scale(0.95); }
+        .share-btn { display: none; color: #fff; font-size: 0.85rem; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .x-btn { background: #000; border: 1px solid #444; }
+        .line-btn { background: #06C755; }
+        .insta-btn { background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h1>煌めき絆メーカー✨ Premium</h1>
+    <div id="message-box">52期の熱量を解き放て！</div>
+    <div class="btn-group">
+        <button id="gen-btn" onclick="generate()">想いを紐解く（生成）</button>
+        <button class="share-btn x-btn" onclick="shareX()">X で不滅にする</button>
+        <button class="share-btn line-btn" onclick="shareLINE()">LINE で送る</button>
+        <button class="share-btn insta-btn" onclick="shareInsta()">Instagram に刻む</button>
+    </div>
+</div>
+
+<script>
+    let currentMsg = "";
+    let count = 0;
+    const pools = [
+        "52期の絆は永遠に不滅だ！ 🎉✨",
+        "No guts, no glory. 根性なしに栄光なし！ 🔥",
+        "未来を創るのは俺たち52期だ 🚀🎊",
+        "Fortune favors the bold. 幸運は勇者に味方する。 💎",
+        "桜梅桃李。個性が響き合う最高のチーム！ 🌸",
+        "Sky is the limit. 可能性は無限大！ 🎈🪅",
+        "感謝・情熱・そして絆。 🤝🔥",
+        "The best is yet to come. 最高の瞬間はこれからだ！ 🎊✨",
+        "52期、100万倍のパワーで突き進め！ ⚡️🎊",
+        "Stay gold. 輝き続けよう、52期の魂よ。 ✨🏅"
+    ];
+
+    async function generate() {
+        count++;
+        const box = document.getElementById('message-box');
+        
+        // 52回目：伝説のラグ演出
+        if (count === 52) {
+            box.style.borderColor = "#ff0";
+            box.innerText = "System Loading...\nデータ整合中...52%";
+            box.style.color = "#ff0";
+            
+            await new Promise(r => setTimeout(r, 2000)); // 2秒のラグ
+            
+            currentMsg = "【✨52期 伝説の称号✨】\nNo guts, no glory!! 🎉🎉🎉\nお前こそが絆を繋ぐ真のリーダーだ！\n🎈🎊🪅🎁🌟💖";
+            box.innerText = currentMsg;
+            box.style.color = "#fff";
+            box.style.textShadow = "0 0 20px #ff0, 0 0 30px #ffa500";
+            confetti({ particleCount: 400, spread: 100, origin: { y: 0.5 }, colors: ['#ffd700', '#ffffff', '#ff00ff'] });
+            return;
+        }
+
+        // 通常生成
+        currentMsg = pools[Math.floor(Math.random() * pools.length)];
+        box.innerText = currentMsg;
+        box.style.color = "#fff";
+        box.style.textShadow = "none";
+        document.querySelectorAll('.share-btn').forEach(el => el.style.display = 'block');
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    }
+
+    function shareX() { window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(currentMsg + "\n#52期 #絆メーカー")}`); }
+    function shareLINE() { window.open(`https://social-plugins.line.me/lineit/share?text=${encodeURIComponent(currentMsg)}`); }
+    function shareInsta() {
+        navigator.clipboard.writeText(currentMsg).then(() => {
+            alert("コピー完了！インスタを開きます。");
+            window.open("instagram://camera");
+        });
+    }
+</script>
+</body>
+</html>
